@@ -10,18 +10,23 @@
         }
     ],
     "autoload": {
-      "psr-4": {
-        "frontkom\\BehatAutoDdevNonHeadless\\": "src"
-      }
+        "psr-4": {
+            "frontkom\\BehatAutoDdevNonHeadless\\": "src"
+        }
     },
     "scripts": {
-      "test": "@composer lint && phpunit",
-      "lint": "phpcs -p -n",
-      "phpstan": "phpstan analyse src tests"
+        "test": "@composer lint && phpunit",
+        "lint": "phpcs -p -n",
+        "phpstan": "phpstan analyse src tests"
     },
     "require-dev": {
-        "behat/behat": "^3.14"
+        "behat/behat": "^3.14",
+        "phpunit/phpunit": "^9.5"
     },
-    "config": {
+    "config": {},
+    "autoload-dev": {
+        "psr-4": {
+            "frontkom\\BehatAutoDdevNonHeadless\\Tests\\": "tests"
+        }
     }
 }
