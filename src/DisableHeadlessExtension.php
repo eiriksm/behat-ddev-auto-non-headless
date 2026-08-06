@@ -16,7 +16,9 @@ class DisableHeadlessExtension implements Extension {
    * Mink accepts both the legacy chrome.switches shape and the W3C
    * goog:chromeOptions one, the latter with or without extra_capabilities.
    */
-  const HEADLESS_PATHS = [
+  private const SELENIUM2_DRIVER = 'Behat\\Mink\\Driver\\Selenium2Driver';
+
+  private const HEADLESS_PATHS = [
     ['chrome', 'switches'],
     ['extra_capabilities', 'goog:chromeOptions', 'args'],
     ['goog:chromeOptions', 'args'],
@@ -51,7 +53,7 @@ class DisableHeadlessExtension implements Extension {
       }
       $driver = $arguments[0];
       // Any session name is fine, but only Selenium2 takes these capabilities.
-      if (strpos((string) $driver->getClass(), 'Selenium2Driver') === FALSE) {
+      if (!is_a((string) $driver->getClass(), self::SELENIUM2_DRIVER, TRUE)) {
         continue;
       }
       $driver_args = $driver->getArguments();

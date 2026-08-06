@@ -21,7 +21,8 @@
     },
     "require-dev": {
         "behat/behat": "^3.14",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "behat/mink-selenium2-driver": "^1.7"
     },
     "config": {},
     "autoload-dev": {

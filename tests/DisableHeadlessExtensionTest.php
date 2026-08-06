@@ -81,6 +81,14 @@ class DisableHeadlessExtensionTest extends TestCase {
     $this->assertSame($capabilities, $this->capabilities($container));
   }
 
+  public function testDriverSubclassesAreHandled(): void
+  {
+    $capabilities = ['chrome' => ['switches' => ['--headless', '--no-sandbox']]];
+    $container = $this->containerWithCapabilities($capabilities, SubclassedSelenium2Driver::class);
+    (new DisableHeadlessExtension())->process($container);
+    $this->assertSame(['chrome' => ['switches' => ['--no-sandbox']]], $this->capabilities($container));
+  }
+
   public function testOtherDriversAreLeftAlone(): void
   {
     $capabilities = ['chrome' => ['switches' => ['--headless']]];
@@ -106,4 +114,10 @@ class DisableHeadlessExtensionTest extends TestCase {
     return $calls[0][1][1]->getArgument(0)->getArgument(1);
   }
 
+}
+
+/**
+ * Stands in for drivers extending Selenium2Driver, such as Drupal core's.
+ */
+class SubclassedSelenium2Driver extends \Behat\Mink\Driver\Selenium2Driver {
 }
